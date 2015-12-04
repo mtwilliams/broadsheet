@@ -1,0 +1,12 @@
+# Sublime Text 2/3
+*.sublime-*
+
+# Node
+node_modules/
+
+# Gulp
+public/
+
+# Backend
+.cache/
+db/*.sqlite3

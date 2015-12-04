@@ -1,0 +1,488 @@
+// TODO(mtwilliams): Give these variables clearer names.
+$primary: #3bba82; // #24be6f;
+$foreground: #b0b0b0; // #33495f
+$background: #efefef; // #f1f1f1;
+$shadow: #33495f;
+$error: #f66;
+
+$bp-small: 480px;
+$bp-medium: 640px;
+$bp-large: 768px;
+$bp-full: 960px;
+
+// TODO(mtwilliams): Extract standard margins padding into variables.
+
+// TODO(mtwilliams): Move into utilities.
+// TODO(mtwilliams): Refactor into mixin.
+.component {
+  position: relative;
+}
+
+.clearfix {
+  overflow: auto;
+
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.container {
+  @extend .clearfix;
+  max-width: 960px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  from {
+    transform:rotate(0deg);
+  }
+
+  to {
+    transform:rotate(360deg);
+  }
+}
+
+@mixin spin($hz) {
+  animation-name: spin;
+  animation-duration: 1000ms/$hz;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+// TODO(mtwilliams): Standarize elements.
+html, body {
+  background: $background;
+  color: $foreground;
+  font-family: "Source Sans Pro", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 400;
+}
+
+a {
+  color: $primary;
+}
+
+.modal {
+  position: fixed;
+  top: 0; left: 0; bottom: 0; right: 0;
+  z-index: 9999;
+}
+.modal__mask {
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: rgba($shadow,0.8);
+  z-index: -1;
+}
+.modal__content {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background: #fff;
+  color: $foreground;
+  padding: 20px;
+}
+.modal.modal-transition {
+  transition: all .2s ease;
+}
+.modal.modal-enter,
+.modal.modal-leave {
+  opacity: 0;
+}
+
+.join {
+  position: relative;
+  width: 280px;
+}
+.join h1 {
+  color: $primary;
+  margin: 0 0 10px;
+}
+.join p {
+  margin: 0 0 15px;
+}
+.join__error {
+  color: $error;
+}
+.join__name,
+.join__email {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  border: 2px solid $background;
+  padding: 8px 12px;
+  font-size: 16px;
+  color: #8c8c8c;
+  background: #fff;
+  margin-bottom: 10px;
+  &:focus { border-color: $primary; outline: none; }
+  &::-webkit-input-placeholder { color: $foreground; outline: none; }
+  &:-moz-placeholder { color: $foreground; }
+  &::-moz-placeholder { color: $foreground; }
+  &:-ms-input-placeholder { color: $foreground; }
+}
+.join__subscribe {
+  position: relative;
+  width: 100%;
+  display: block;
+  margin: 15px 0 20px;
+  line-height: 20px;
+  height: 20px;
+  input {
+    opacity: 0;
+    position: absolute;
+    top: 0; left: 0;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    z-index: 2;
+    &:checked + label:before {
+      background: $primary;
+      color: #fff;
+    }
+  }
+  label:before {
+    display: inline-block;
+    position: relative;
+    top: 0; left: -10px;
+
+    background: $shadow;
+    width: 20px;
+    height: 20px;
+    font-size: 18px;
+
+    font-family: 'typicons';
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+    text-decoration: none;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    content: "\e11e";
+
+    color: transparent;
+  }
+  label {
+    margin-left: 10px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+}
+.join__submit {
+  width: 100%;
+  padding: 8px 12px;
+  background: $primary;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+}
+.join__submit[disabled=true],
+.join__submit--disabled {
+  background: $background;
+  color: $foreground;
+}
+.join__spinner {
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: rgba(white, 0.75);
+  font-size: 60px;
+  color: $foreground;
+  > span {
+    @include spin(1);
+    position: absolute;
+    top: 50%; left: 50%;
+    margin: -30px 0 0 -30px;
+  }
+  > span:before {
+    position: relative;
+    top: -5px;
+  }
+}
+
+.joined {
+  position: relative;
+  width: 280px;
+  height: 224px;
+  background: url('/images/joined.gif');
+  background-size: 280px 224px;
+}
+.joined__message {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(black, 0.5);
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.header {
+  @extend .component;
+  width: 100%;
+  height: 40px;
+  padding: 10px 0;
+  background: $primary;
+  color: #fff;
+}
+.header__logo {
+  @extend .left;
+  display: inline-block;
+  width: 42px;
+  height: 42px;
+}
+.header-navigation {
+  @extend .right;
+  text-decoration: none;
+  color: #fff;
+}
+.header-navigation > a {
+  margin-right: 10px;
+  &:last-child {
+    margin-right: 0;
+  }
+}
+.header-navigation__link,
+.header-navigation__button {
+  line-height: 40px;
+  font-size: 18px;
+  text-decoration: none;
+  color: #fff;
+}
+.header-navigation__link {
+}
+.header-navigation__button {
+  padding: 6px 10px;
+  background: $shadow;
+  color: #fff;
+}
+
+.content {
+  @extend .container;
+  margin-top: 20px;
+}
+
+.footer {
+  @extend .component;
+  @extend .clearfix;
+}
+.footer__mark { @extend .left; }
+.footer__ingredients {
+  @extend .right;
+
+  @media only screen and (max-width: $bp-small) {
+    display: none;
+  }
+}
+.footer__ingredient {}
+.footer__ingredient__icon {}
+
+.newsletter {
+  @extend .component;
+  background-color: $primary;
+  background-image: url('/images/topographic.png');
+  background-size: 1000px;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+
+  h1 {
+    font-size: 24px;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 18px;
+    margin: 0;
+    margin-bottom: 20px;
+  }
+}
+.newsletter__engraving {
+  border: 2px solid #fff;
+  padding: 20px;
+  padding-bottom: 0;
+}
+.newsletter__email {
+  border: none;
+  padding: 8px 12px;
+  font-size: 16px;
+  color: #8c8c8c;
+  background: #fff;
+  width: 100%;
+  max-width: 200px;
+  margin-bottom: 20px;
+  &:focus {
+    outline: none;
+    box-shadow: 0px 0px 1px $shadow;
+  }
+  &::-webkit-input-placeholder { color: $foreground; }
+  &:-moz-placeholder { color: $foreground; }
+  &::-moz-placeholder { color: $foreground; }
+  &:-ms-input-placeholder { color: $foreground; }
+}
+.newsletter__subscribe {
+  padding: 8px 12px;
+  background: $shadow;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.seperator {
+  @extend .component;
+  position: relative;
+  width: 100%;
+  height: 0;
+  margin: (20px + 10px) 0;
+  border-top: 1px solid $foreground;
+  text-align: center;
+}
+.seperator__title {
+  position: relative;
+  top: -(16px/2 + 2px);
+  background: $background;
+  color: $foreground;
+  font-size: 16px;
+  padding: 2px 6px;
+}
+
+.post {
+  @extend .component;
+  @extend .clearfix;
+  background: #fff;
+  color: $foreground;
+  margin-bottom: 20px;
+  padding: 20px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+.post--link {}
+.post--text {}
+.post--sponsored {}
+.post--ask {}
+.post--show {}
+.post--rainbow {}
+.post-sentiment {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  bottom: 20px;
+  line-height: 100%;
+  vertical-align: middle;
+  width: 30px;
+  padding-top: 0;
+  font-weight: 700;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1;
+  overflow: hidden;
+  margin-right: 13px;
+}
+.post-sentiment--positive {
+  .post-sentiment__up,
+  .post-sentiment__votes {
+    color: $primary;
+  }
+}
+.post-sentiment--neutral {}
+.post-sentiment--negative {
+  .post-sentiment__down,
+  .post-sentiment__votes {
+    color: $shadow;
+  }
+}
+.post-sentiment__up {}
+.post-sentiment__down {}
+.post-sentiment__votes {}
+.post-header {
+  margin-left: 43px;
+  box-sizing: border-box;
+  width: calc(100% - 43px);
+}
+.post__title {
+  a { text-decoration: none; }
+  h1 { font-size: 18px; margin: 0; margin-bottom: 5px; }
+}
+.post-details {
+  font-size: 12px;
+}
+.post-content {}
+.post-comments {
+  margin-top: 20px;
+  padding-top: 13px;
+  border-top: 2px solid $background;
+}
+.post-comments__title {
+  margin: 0;
+}
+
+.comment {
+  margin-top: 15px;
+}
+.comment-author {
+  display: inline-block;
+  line-height: 20px;
+  vertical-align: middle;
+  height: 21px;
+}
+.comment-author__portrait {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: $background;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+.comment-author__name {
+  // HACK(mtwilliams): Can't figure out why line-height isn't vertically
+  // centering this.
+  position: relative;
+  top: -5px;
+  font-size: 14px;
+}
+.comment__age {
+  font-size: 12px;
+}
+.comment__anchor {
+  font-size: 16px;
+}
+.comment__body {
+  margin: 10px 0;
+  font-size: 16px;
+}
+.comment-sentiment {
+  // TODO(mtwilliams): Enable voting on comments.
+  display: none;
+  font-size: 12px;
+}
+.comment--child {
+  margin-top: 15px;
+  margin-left: 13px;
+  border-left: 4px solid $background;
+  padding-left: 13px;
+}
+.comment-sentiment--positive {}
+.comment-sentiment--neutral {}
+.comment-sentiment--negative {}
+.comment-sentiment__count {}
+.comment-children {}

@@ -1,0 +1,8 @@
+Use Sinatra conditions for required parameters.
+Fix namespacing issues w/ autoload.
+Rake tasks (in /tasks).
+Webpackify.
+Fix Gulp error logging.
+
+http://sequel.jeremyevans.net/rdoc-plugins/classes/Sequel/Plugins/RcteTree.html
+https://groups.google.com/forum/#!msg/sequel-talk/WTikfLCZJ6Q/68P8p0naTlcJ

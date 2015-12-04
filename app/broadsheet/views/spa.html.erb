@@ -1,0 +1,40 @@
+<script type="text/javascript">
+  window.Broadsheet = {};
+  Broadsheet.Auth = {session: <%= session.to_json %>};
+</script>
+
+<div id="modals">
+</div>
+
+<bs-header>
+</bs-header>
+
+<div class="content">
+  <template v-if="session.authenticated">
+    <template v-if="!session.user.subscribed">
+      <bs-newsletter>
+      </bs-newsletter>
+      <bs-seperator title="This Week">
+      </bs-seperator>
+    </template>
+  </template>
+
+  <template v-else>
+    <bs-newsletter>
+    </bs-newsletter>
+    <bs-seperator title="This Week">
+    </bs-seperator>
+  </template>
+
+  <bs-post v-for="post in posts"
+           :id="post.id"
+           :title="post.title"
+           :link="post.link",
+           :votes="post.votes",
+           :age="post.age",
+           :comments="post.comments">
+  </bs-post>
+</div>
+
+<bs-footer>
+</bs-footer>
