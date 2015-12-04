@@ -28,8 +28,6 @@ gem 'rack-ssl-enforcer', :require => 'rack/ssl-enforcer'
 gem 'sinatra', :require => 'sinatra/base'
 gem 'sinatra-contrib', :require => 'sinatra/contrib/all'
 gem 'tilt'
-gem 'sprockets'
-gem 'sprockets-helpers'
 
 # Erubis for HTML.
 gem 'erubis'
