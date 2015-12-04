@@ -1,6 +1,6 @@
 window.Broadsheet ?= {}
 
-# TODO(mtwilliams): Have Broadsheet::SinglePageApp set this.
+# TODO(mtwilliams): Have Broadsheet::SpaController set this.
 # TODO(mtwilliams): Webpack.
 Broadsheet.development = true
 
