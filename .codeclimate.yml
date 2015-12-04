@@ -1,2 +1,5 @@
+languages:
+  Ruby: true
+  JavaScript: true
 exclude_paths:
 - "assets/vendor"
