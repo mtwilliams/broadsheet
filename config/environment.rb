@@ -11,7 +11,7 @@ Bundler.require(Broadsheet.env.to_sym)
 #   end
 # end
 
-require_relative "environments/#{Broadsheet.env.to_s}"
+require_relative "environments/#{Broadsheet.env}"
 
 Broadsheet::Database.connect
 

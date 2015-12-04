@@ -12,16 +12,15 @@ class Broadsheet::UserPresenter
     sanitized
   end
 
-  private
-    def self.visible(user, viewer: nil)
-      if viewer
-        if viewer.id == user.id
-          VISIBILE_FOR_SELF | VISIBILE_FOR_OTHERS
-        else
-          VISIBILE_FOR_OTHERS
-        end
+  def self.visible(user, viewer: nil)
+    if viewer
+      if viewer.id == user.id
+        VISIBILE_FOR_SELF | VISIBILE_FOR_OTHERS
       else
         VISIBILE_FOR_OTHERS
       end
+    else
+      VISIBILE_FOR_OTHERS
     end
+  end
 end

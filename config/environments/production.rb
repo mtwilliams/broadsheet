@@ -50,7 +50,7 @@ Broadsheet::Queue.configure do
   Tetrahedron::Queue::Sidekiq.new do
     url = URI[ENV['REDIS_URL']]
     redis host: url.host,
-          port: url.port
+          port: url.port,
           database: url.path[1..-1].to_i
   end
 end

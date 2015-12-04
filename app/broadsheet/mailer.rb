@@ -58,11 +58,11 @@ class Broadsheet::Mailer
         end
 
         private
-          def respond_to_missing(method_name, include_private=false)
+          def respond_to_missing(method_name, _include_private=false)
             @bindings.include? method_name
           end
 
-          def method_missing(method_name, *args)
+          def method_missing(method_name, *_args)
             @bindings[method_name]
           end
       end
@@ -73,7 +73,7 @@ class Broadsheet::Mailer
         case engines[type]
         when :erb
           bindings = Bindings.new(bindings).get_binding
-          return ERB.new(File.read(template)).result(bindings) if File.exists?(template)
+          return ERB.new(File.read(template)).result(bindings) if File.exist?(template)
         else
           fail
         end
