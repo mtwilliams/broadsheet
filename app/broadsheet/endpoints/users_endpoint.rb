@@ -14,7 +14,6 @@ class Broadsheet::UsersEndpoint < Broadsheet::Endpoint
   end
 
   post '/v1/users', :auth => false do
-    %w{name email}.each{|required| puts [required, params.include?(required)].inspect}
     halt 400 unless %w{name email}.all?{|required| params.include?(required)}
     user = Broadsheet::UsersService.create(name: params[:name], email: params[:email])
     Broadsheet::UsersMailer.welcome(user).deliver!

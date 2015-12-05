@@ -36,7 +36,7 @@ Sequel.migration do
       column :unguessable, :text
 
       column :expires_at, :timestamp
-      column :reedemed_at, :timestamp
+      column :redeemed_at, :timestamp
       column :invalidated_at, :timestamp
     end
 

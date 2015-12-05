@@ -11,16 +11,14 @@ class Broadsheet::UsersService
 
   def self.login(token:)
     # TODO(mtwilliams): Verify this is correct.
-    token = Broadsheet::Token.find(type: :one_time_login_token, unguessable: token)
-    token.redeem!
-    [true, token.owner]
-  rescue
-    [false]
+    token = Broadsheet::Token.find(type: 'one_time_login_token', unguessable: token)
+    return [true, token.owner] if token.redeem
+    false
   end
 
   def self.verify(user:, token:)
     # TODO(mtwilliams): Verify this is correct.
-    token = Broadsheet::Token.find(owner: user, type: :email_verification_token, unguessable: token)
+    token = Broadsheet::Token.find(owner: user, type: 'email_verification_token', unguessable: token)
     Broadsheet::Database.transaction do
       token.redeem!
       @user.update(verified_their_email_at: DateTime.now)

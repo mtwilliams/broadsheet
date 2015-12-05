@@ -7,26 +7,22 @@ Broadsheet.development = true
 Vue.config.debug = Broadsheet.development
 Vue.config.silent = true unless Broadsheet.development
 
+Broadsheet.Errors =
+  humanize: (error) ->
+    code_to_human =
+      "no_user_by_that_email": "We don't know anyone by that email."
+    code_to_human[error] || "Something went horribly, horribly wrong."
+
 Broadsheet.Users = {}
 Broadsheet.Users.join = (name, email, subscribe_to_newsletter) ->
   dfd = $.Deferred()
-
   $.post '/v1/users', {name: name, email: email, subscribe: subscribe_to_newsletter}
     .done (user) ->
-      $.get '/v1/session'
-        # HACK(mtwilliams): Use Vue.$set on our root Vue instance to have it
-        # recognize that we changed Broadsheet.Auth.session.
-        .done (session) ->
-          Vue.set Broadsheet.Auth, 'session', session
-          Broadsheet.vm.$set 'session', Broadsheet.Auth.session
-        .fail () ->
-          # Well, that's not good.
-          Vue.set Broadsheet.Auth, 'session', {authenticated: false}
+      Broadsheet.Auth.sync()
       dfd.resolve()
     .fail () ->
       # TODO(mtwilliams): Handle errors.
       dfd.reject()
-
   dfd.promise()
 
 #  _____     _   _
@@ -38,11 +34,49 @@ Broadsheet.Users.join = (name, email, subscribe_to_newsletter) ->
 
 Broadsheet.Auth ?= {}
 
-Broadsheet.Auth.login = (email, password) ->
-  # ...
+Broadsheet.Auth.sync = () ->
+  $.get '/v1/session'
+    # HACK(mtwilliams): Use Vue.$set on our root Vue instance to have it
+    # recognize that we changed Broadsheet.Auth.session.
+    .done (session) ->
+      Vue.set Broadsheet.Auth, 'session', session
+      Broadsheet.vm.$set 'session', Broadsheet.Auth.session
+    .fail () ->
+      # Well, that's not good.
+      Vue.set Broadsheet.Auth, 'session', {authenticated: false}
+
+Broadsheet.Auth.request_one_time_login_token = (email) ->
+  dfd = $.Deferred()
+  $.post "/v1/login/request", {email: email}
+    .done (response) ->
+      if response.status == "ok"
+        dfd.resolve()
+      dfd.reject(response.error)
+    .fail (response) ->
+      if response.error
+        dfd.reject(response.error)
+      else
+        dfd.reject("unknown")
+  dfd.promise()
+
+Broadsheet.Auth.login = (token) ->
+  dfd = $.Deferred()
+  $.post '/v1/login', {token: token}
+    .done (response) ->
+      if response.status != "ok"
+        return dfd.reject(response.error)
+      else
+        Broadsheet.Auth.sync()
+        dfd.resolve()
+    .fail () ->
+      # TODO(mtwilliams): Handle errors.
+      dfd.reject()
+  dfd.promise()
 
 Broadsheet.Auth.logout = () ->
-  # ...
+  $.post '/v1/logout'
+    .then () ->
+      Broadsheet.Auth.sync()
 
 #  _____       _     _
 # |     |___ _| |___| |
@@ -109,7 +143,7 @@ Broadsheet.JoinModal = Vue.extend
     email: null
     error: null
     submitted: false
-    dismissable: false
+    dismissable: true
 
   computed:
     isSubmittable: () ->
@@ -141,7 +175,7 @@ Broadsheet.JoinedModal = Vue.extend
 
 Broadsheet.welcome = () ->
   Broadsheet.joinedModal = new Broadsheet.JoinedModal
-    el: $("<div></div>").appendTo("#modals")[0]
+    el: $("<div></div>").appendTo("body")[0]
     events:
       dismissed: () ->
         Broadsheet.Router.route "/"
@@ -149,7 +183,7 @@ Broadsheet.welcome = () ->
 
 Broadsheet.join = () ->
   Broadsheet.joinModal = new Broadsheet.JoinModal
-    el: $("<div></div>").appendTo("#modals")[0]
+    el: $("<div></div>").appendTo("body")[0]
     events:
       joined: () ->
         Broadsheet.Router.route "/welcome"
@@ -158,6 +192,58 @@ Broadsheet.join = () ->
       dismissed: () ->
         Broadsheet.Router.route "/"
         @$destroy(true)
+
+Broadsheet.Login = Vue.extend
+  template: '''
+    <div id="login" class="login">
+      <div class="login-container">
+        <div class="login__message" v-if="message" @click="dismiss">{{message}}</div>
+        <div class="login__error" v-if="error" @click="dismiss">{{error}}</div>
+        <input class="login__email" name="email" v-model="email" type="email" placeholder="Email Address">
+        <input class="login__submit" type="submit" @click="submit" value="Send Login Link" v-bind:class="{'login__submit--disabled': !isSubmittable}" :disabled="!isSubmittable">
+      </div>
+    </div>
+  '''
+
+  data: () ->
+    error: null
+    message: null
+    email: null
+    submitted: false
+
+  computed:
+    isSubmittable: () ->
+      return false if @submitted
+      /^.+@.+\..+$/.test(@email)
+
+  methods:
+    dismiss: (event) ->
+      if @error
+        @email = null
+        @submitted = false
+        @error = null
+      else
+        # TODO(mtwilliams): Just use a visible flag?
+        @$destroy(true)
+
+    submit: (event) ->
+      @submitted = true
+
+      vm = this
+      Broadsheet.Auth.request_one_time_login_token(@email)
+        .done () ->
+          vm.$set "message", "We've sent you a login email."
+        .fail (error) ->
+          console.log error, Broadsheet.Errors.humanize(error)
+          vm.$set "error", Broadsheet.Errors.humanize(error)
+
+Broadsheet.login = () ->
+  # TODO(mtwilliams): One at a time.
+  new Broadsheet.Login
+    el: $("<div></div>").prependTo("body")[0]
+
+Broadsheet.logout = () ->
+  Broadsheet.Auth.logout()
 
 #  _____           _
 # |  |  |___ ___ _| |___ ___
@@ -192,9 +278,9 @@ Broadsheet.Header = Vue.extend
     join: (event) ->
       Broadsheet.Router.route "/join"
     login: (event) ->
-      Broadsheet.Router.route "/login"
+      Broadsheet.login()
     logout: (event) ->
-      Broadsheet.Router.route "/logout"
+      Broadsheet.logout()
 
 Vue.component 'bs-header', Broadsheet.Header
 
@@ -432,6 +518,9 @@ Broadsheet.Router =
     else
       console.log "Routing..."
       @path = window.location.hash[2..-1]
+      if /^\/login\//.test(@path)
+        token = @path.replace("/login/","")
+        Broadsheet.Auth.login(token)
       if /^\/join$/.test(@path)
         Broadsheet.join()
       if /^\/welcome$/.test(@path)

@@ -72,6 +72,28 @@ html, body {
   font-weight: 400;
 }
 
+input {
+  &::-webkit-input-placeholder { color: $foreground; }
+  &:-moz-placeholder { color: $foreground; }
+  &::-moz-placeholder { color: $foreground; }
+  &:-ms-input-placeholder { color: $foreground; }
+}
+
+input[type="text"],
+input[type="name"],
+input[type="email"] {
+  border: 2px solid $background;
+  padding: 8px 12px;
+  font-size: 16px;
+  color: #8c8c8c;
+  background: #fff;
+
+  &:focus {
+    border-color: $primary;
+    outline: none;
+  }
+}
+
 a {
   color: $primary;
 }
@@ -103,6 +125,48 @@ a {
   opacity: 0;
 }
 
+.login {
+  background: $shadow;
+  color: #fff;
+}
+.login-container {
+  position: relative;
+  max-width: 960px;
+  padding: 15px 20px;
+  margin: 0 auto;
+  text-align: center;
+}
+.login__email {
+  max-width: 200px;
+  width: calc(100% - 140px);
+  padding: 4px 6px !important;
+}
+.login__submit {
+  width: 120px;
+  background: $primary;
+  border: none;
+  color: #fff;
+  padding: 6px 8px;
+}
+.login__submit[disabled=true],
+.login__submit--disabled {
+  background: $background;
+  color: $foreground;
+}
+.login__error,
+.login__message {
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: $shadow;
+  padding: 15px 20px;
+  font-size: 16px;
+  line-height: 32px;
+  text-align: center;
+}
+.login__error {
+  color: $error;
+}
+
 .join {
   position: relative;
   width: 280px;
@@ -122,17 +186,7 @@ a {
   box-sizing: border-box;
   display: block;
   width: 100%;
-  border: 2px solid $background;
-  padding: 8px 12px;
-  font-size: 16px;
-  color: #8c8c8c;
-  background: #fff;
   margin-bottom: 10px;
-  &:focus { border-color: $primary; outline: none; }
-  &::-webkit-input-placeholder { color: $foreground; outline: none; }
-  &:-moz-placeholder { color: $foreground; }
-  &::-moz-placeholder { color: $foreground; }
-  &:-ms-input-placeholder { color: $foreground; }
 }
 .join__subscribe {
   position: relative;

@@ -1,9 +1,33 @@
 class Broadsheet::Token < Broadsheet::Model(:tokens)
   many_to_one :owner, class: Broadsheet::User
 
+  def expired?
+    if self.expires_at
+      self.expires_at <= DateTime.now
+    else
+      false
+    end
+  end
+
+  def redeemed?
+    if self.redeemed_at
+      true
+    else
+      false
+    end
+  end
+
+  def valid?
+    if self.invalidated_at
+      false
+    else
+      !self.expired?
+    end
+  end
+
   def redeem
     if redeemable?
-      self.update(:reedemed_at => DateTime.now)
+      self.update(:redeemed_at => DateTime.now)
     else
       false
     end
@@ -15,10 +39,7 @@ class Broadsheet::Token < Broadsheet::Model(:tokens)
   end
 
   def redeemable?
-    return false if self.expires_at >= DateTime.now
-    return false if self.reedemed_at
-    return false if self.invalidated_at
-    true
+    self.valid? && !self.redeemed?
   end
 
   def redeemable!
