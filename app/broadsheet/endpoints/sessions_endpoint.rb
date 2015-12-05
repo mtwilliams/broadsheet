@@ -28,5 +28,6 @@ class Broadsheet::SessionsEndpoint < Broadsheet::Endpoint
 
   post '/v1/logout' do
     @session.invalidate if @session
+    json({})
   end
 end
