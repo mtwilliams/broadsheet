@@ -8,8 +8,8 @@
 </bs-header>
 
 <div class="content">
-  <template v-if="state.session.authenticated">
-    <template v-if="!state.session.user.subscribed">
+  <template v-if="app.state.session.authenticated">
+    <template v-if="!app.state.session.user.subscribed">
       <bs-newsletter>
       </bs-newsletter>
       <bs-seperator title="This Week">

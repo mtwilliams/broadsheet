@@ -1,6 +1,14 @@
 window.Broadsheet ?= {}
+
+
 window.Broadsheet.App ?= {}
-window.Broadsheet.App.state ?= {session: {authenticated: false}}
+Broadsheet.App.state ?= {session: {authenticated: false}}
+
+# Inject application state globally.
+Vue.mixin
+  data: () ->
+    app:
+      state: Broadsheet.App.state
 
 # TODO(mtwilliams): Have Broadsheet::SpaController set this.
 # TODO(mtwilliams): Webpack.
@@ -266,7 +274,7 @@ Broadsheet.Header = Vue.extend
       <div class="container">
         <a href="/"><img class="header__logo" src="images/logo.png"></a>
         <nav class="header-navigation">
-          <template v-if="state.session.authenticated">
+          <template v-if="app.state.session.authenticated">
             <a class="header-navigation__link" @click="logout">Logout</a>
           </template>
           <template v-else>
@@ -279,7 +287,7 @@ Broadsheet.Header = Vue.extend
   '''
 
   data: () ->
-    state: Broadsheet.App.state
+    {}
 
   methods:
     join: (event) ->
@@ -340,8 +348,8 @@ Broadsheet.Newsletter = Vue.extend
       <div class="newsletter__engraving">
         <h1>Our Weekly Newsletter</h1>
         <p>The very best financial technology stories of the week with insight, delivered right to your inbox.</p>
-        <template v-if="state.session.authenticated">
-          <input name="email" v-model="email" type="hidden" value="{{state.session.user.email}}">
+        <template v-if="app.state.session.authenticated">
+          <input name="email" v-model="email" type="hidden" value="{{app.state.session.user.email}}">
         </template>
         <template v-else>
           <input class="newsletter__email" name="email" v-model="email" type="email" placeholder="john@doe.com">
@@ -352,7 +360,6 @@ Broadsheet.Newsletter = Vue.extend
   '''
 
   data: () ->
-    state: Broadsheet.App.state
     email: ""
 
   computed:
@@ -474,7 +481,6 @@ Vue.component 'bs-comment', Broadsheet.Comment
 Broadsheet.vm = new Vue
   el: '#spa'
   data:
-    state: Broadsheet.App.state
     posts: [
       id: 1
       title: "UK Mobile-Only Atom Bank Picks Up $128M Led By BBVA, Owner Of Simple In The U.S."
