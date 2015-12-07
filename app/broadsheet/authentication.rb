@@ -4,7 +4,6 @@ class Broadsheet
       app.before do
         begin
           if session[:id]
-            puts "Sessioned (#{session[:id]})"
             @session = Broadsheet::Session[session[:id].to_i]
             fail unless @session.valid?
           else

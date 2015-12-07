@@ -18,8 +18,11 @@ class Broadsheet::SessionsEndpoint < Broadsheet::Endpoint
     halt 400 unless %w{token}.all?{|required| params.include?(required)}
     successful, user = Broadsheet::UsersService.login(token: params[:token])
     if successful
-      @session ||= Broadsheet::Session.create
-      @session.update(owner: user)
+      if @session
+        @session.update(owner: user)
+      else
+        @session = Broadsheet::Session.create(owner: user)
+      end
       json({"status": "ok"})
     else
       json({"status": "error", "error": "unable_to_redeem_token"})

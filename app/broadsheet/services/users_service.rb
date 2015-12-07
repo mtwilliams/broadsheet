@@ -12,6 +12,7 @@ class Broadsheet::UsersService
   def self.login(token:)
     # TODO(mtwilliams): Verify this is correct.
     token = Broadsheet::Token.find(type: 'one_time_login_token', unguessable: token)
+    return false unless token
     return [true, token.owner] if token.redeem
     false
   end
