@@ -1,5 +1,5 @@
 mike = Broadsheet::UsersService.create(name: "Michael Williams",
-                                       email: "m.t.Williams@live.com")
+                                       email: "m.t.williams@live.com")
 
 Broadsheet::Post.create do |post|
   post.poster_id = mike.id

@@ -369,7 +369,11 @@ Broadsheet.Newsletter = Vue.extend
   methods:
     subscribe: (event) ->
       event.preventDefault()
-      alert(@email)
+
+      $.post '/v1/newsletter/subscribe', {email: @email}
+        .then () ->
+          # TODO(mtwilliams): Refactor into a generalized state synchronization method.
+          Broadsheet.Auth.sync()
 
 Vue.component 'bs-newsletter', Broadsheet.Newsletter
 
