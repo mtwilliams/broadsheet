@@ -1,8 +1,67 @@
-Use Sinatra conditions for required parameters.
-Fix namespacing issues w/ autoload.
-Rake tasks (in /tasks).
+Use <form> so as not to break default submission behaviour (use enter/return).
+Allow voting on posts, prompting users to join if they're not authenticated.
 Webpackify.
-Fix Gulp error logging.
+ => Bower.
+ => Refactor into multiple files.
+Fix error logging issues in Gulpfile.
+Use a proper router (vue-router).
+ => Write a generic Javascript client library.
+ => State synchronization under `Broadsheet.App`.
+ => Drop prefixes on components.
+  -> Refactor `app/broadsheet/views/spa.html.erb` into:
+       (1) A "single page application" layout that injects state.
+       (2) A 100% client-side app view-model.
+Use a page, rather than a modal, for joining.
+Post submission.
+ => Post moderation.
+Commenting.
+ => Markdown.
+  => Refactor styling.
+   -> [X] A reset or normalization stylesheet.
+   -> [-] A base stylesheet that themes to good defaults.
+   -> [-] Overrides for components.
+ => Emoji.
+Make backend code more readable.
+ => Use Sinatra conditions for required parameters.
+ => Don't require fully-qualified names for autoload.
+Rake tasks.
+ => Build assets and watch to rebuild on the fly.
+ => Run our App/API.
+ => Deploy to DigitalOcean and S3.
+
 
 http://sequel.jeremyevans.net/rdoc-plugins/classes/Sequel/Plugins/RcteTree.html
 https://groups.google.com/forum/#!msg/sequel-talk/WTikfLCZJ6Q/68P8p0naTlcJ
+
+
+comments: [
+  id: 1
+  author:
+    id: 1
+    portrait: "/images/transparent.gif"
+    name: "John Cena"
+  age: "25 minutes"
+  votes: 1337
+  body: "🎺🎺🎺"
+  children: [
+    id: 2
+    author:
+      id: 2
+      portrait: "/images/transparent.gif"
+      name: "Anonymous"
+    age: "12 minutes"
+    votes: 41
+    body: "🌽 t-thankyou"
+    children: [
+      id: 3
+      author:
+        id: 2
+        portrait: "/images/transparent.gif"
+        name: "Bean Boy"
+      age: "3 minutes"
+      votes: 41
+      body: "beans beans beans they make me want to scream"
+      children: []
+    ]
+  ]
+]
