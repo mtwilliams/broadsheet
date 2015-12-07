@@ -1,3 +1,4 @@
+require 'dotiw'
 require 'gravatar'
 
 class Broadsheet < Tetrahedron::Application
