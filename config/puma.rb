@@ -4,8 +4,8 @@ require_relative 'environment'
 rackup      DefaultRackup
 
 environment Broadsheet.env.to_s
-bind        'tcp://0.0.0.0:9292'
-port        9292
+bind        "tcp://0.0.0.0:#{ENV['PORT']||9292}"
+port        (ENV['PORT']||9292).to_i
 workers     (ENV['PUMA_WORKERS']||1).to_i
 threads     (ENV['PUMA_THREADS_MIN']||1).to_i,
             (ENV['PUMA_THREADS_MAX']||1).to_i
