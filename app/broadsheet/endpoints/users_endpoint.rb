@@ -15,7 +15,7 @@ class Broadsheet::UsersEndpoint < Broadsheet::Endpoint
 
   post '/v1/users', :auth => false do
     halt 400 unless %w{name email}.all?{|required| params.include?(required)}
-    user = Broadsheet::UsersService.create(name: params[:name], email: params[:email])
+    user = Broadsheet::UsersService.create(name: params[:name], email: params[:email].downcase)
     Broadsheet::UsersMailer.welcome(user).deliver!
     wants_to_subscribe = (params[:subscribe].to_s == 'true')
     Broadsheet::NewsletterService.subscribe_a_user(user) if wants_to_subscribe
