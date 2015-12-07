@@ -19,5 +19,5 @@ if Broadsheet.env.development?
   puts "Running database migrations..."
   Broadsheet::Database.migrate("#{Broadsheet.root}/db/migrations")
   puts "Seeding database..."
-  require "#{Broadsheet.root}/db/seed"
+  load "#{Broadsheet.root}/db/seed.rb"
 end
