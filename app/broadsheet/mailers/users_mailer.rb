@@ -12,7 +12,7 @@ class Broadsheet::UsersMailer < Broadsheet::Mailer
          subject: "One of us! One of us!",
          template: 'user/welcome',
          bindings: {:user => user,
-                    :email_verification_link => "https://#{ENV['HOST']}/#!/verify/#{token.unguessable}"}
+                    :email_verification_link => token.url}
   end
 
   def self.login(user)
@@ -28,7 +28,7 @@ class Broadsheet::UsersMailer < Broadsheet::Mailer
          subject: "Your login link",
          template: 'user/login',
          bindings: {:user => user,
-                    :one_time_login_link => "https://#{ENV['HOST']}/#!/login/#{token.unguessable}"}
+                    :one_time_login_link => token.url}
   end
 
   def self.verification(user)

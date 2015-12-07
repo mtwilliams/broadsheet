@@ -1,4 +1,19 @@
 class Broadsheet::Token < Broadsheet::Model(:tokens)
+  def url
+    root = if Broadsheet.env.production?
+             "https://#{ENV['HOST']}"
+           else
+             "https://#{ENV['HOST']}:#{ENV['PORT']}"
+           end
+
+    case self.type
+      when 'email_verification_token'
+        "#{root}/#!/verify/#{self.unguessable}"
+      when 'one_time_login_token'
+        "#{root}/#!/login/#{self.unguessable}"
+      end
+  end
+
   many_to_one :owner, class: Broadsheet::User
 
   def expired?
