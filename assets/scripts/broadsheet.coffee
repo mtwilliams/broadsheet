@@ -1,7 +1,9 @@
 window.Broadsheet ?= {}
 
 window.Broadsheet.App ?= {}
+
 Broadsheet.App.state ?= {session: {authenticated: false}}
+Broadsheet.App.posts_for_this_week ?= [];
 
 # Inject application state globally.
 Vue.mixin
@@ -395,7 +397,7 @@ Broadsheet.Post = Vue.extend
           </a>
         </div>
         <div class="post-details">
-          <a href="#">{{numComments}} {{numComments | pluralize 'comment'}}</a> • {{age}} from <a href="#">TechCrunch</a>
+          <a href="#">{{numComments}} {{numComments | pluralize 'comment'}}</a> • Posted {{age}} by <a href="#!">{{poster.name}}</a>
         </div>
       </div>
       <div class="post-comments">
@@ -417,6 +419,8 @@ Broadsheet.Post = Vue.extend
     title: String
     # TODO(mtwilliams): Accept `null` or validate URL.
     link: String
+    # TODO(mtwilliams): Specify "User"
+    poster: Object
     votes: Number
     # TODO(mtwilliams): Convert to "x units ago" on the client.
     age: String
@@ -479,44 +483,7 @@ Vue.component 'bs-comment', Broadsheet.Comment
 Broadsheet.vm = new Vue
   el: '#spa'
   data:
-    posts: [
-      id: 1
-      title: "UK Mobile-Only Atom Bank Picks Up $128M Led By BBVA, Owner Of Simple In The U.S."
-      link: "http://techcrunch.com/2015/11/24/uk-mobile-only-atom-bank-picks-up-128m-led-by-bbva-owner-of-simple-in-the-u-s/"
-      votes: 123
-      age: "3 hours ago"
-      comments: [
-        id: 1
-        author:
-          id: 1
-          portrait: "/images/transparent.gif"
-          name: "John Cena"
-        age: "25 minutes"
-        votes: 1337
-        body: "🎺🎺🎺"
-        children: [
-          id: 2
-          author:
-            id: 2
-            portrait: "/images/transparent.gif"
-            name: "Anonymous"
-          age: "12 minutes"
-          votes: 41
-          body: "🌽 t-thankyou"
-          children: [
-            id: 3
-            author:
-              id: 2
-              portrait: "/images/transparent.gif"
-              name: "Bean Boy"
-            age: "3 minutes"
-            votes: 41
-            body: "beans beans beans they make me want to scream"
-            children: []
-          ]
-        ]
-      ],
-    ]
+    posts: Broadsheet.App.posts_for_this_week
 
 # TODO(mtwilliams): Use an _actual_ router.
 Broadsheet.Router =

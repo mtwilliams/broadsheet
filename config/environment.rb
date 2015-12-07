@@ -18,4 +18,6 @@ Broadsheet::Database.connect
 if Broadsheet.env.development?
   puts "Running database migrations..."
   Broadsheet::Database.migrate("#{Broadsheet.root}/db/migrations")
+  puts "Seeding database..."
+  require "#{Broadsheet.root}/db/seed"
 end

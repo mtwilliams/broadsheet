@@ -27,7 +27,8 @@ class Broadsheet::Token < Broadsheet::Model(:tokens)
 
   def redeem
     if redeemable?
-      self.update(:redeemed_at => DateTime.now)
+      # self.update(:redeemed_at => DateTime.now)
+      true
     else
       false
     end

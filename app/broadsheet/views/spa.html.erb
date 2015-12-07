@@ -2,6 +2,7 @@
   window.Broadsheet = {};
   Broadsheet.App = {};
   Broadsheet.App.state = {session: <%= session.to_json %>};
+  Broadsheet.App.posts_for_this_week = <%= posts_for_this_week.to_json %>;
 </script>
 
 <bs-header>
@@ -26,6 +27,7 @@
 
   <bs-post v-for="post in posts"
            :id="post.id"
+           :poster="post.poster"
            :title="post.title"
            :link="post.link",
            :votes="post.votes",

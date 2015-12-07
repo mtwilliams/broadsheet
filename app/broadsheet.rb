@@ -63,6 +63,8 @@ class Broadsheet < Tetrahedron::Application
 
   autoload :UserPresenter, 'broadsheet/presenters/user_presenter'
   autoload :SessionPresenter, 'broadsheet/presenters/session_presenter'
+  autoload :PostPresenter, 'broadsheet/presenters/post_presenter'
+  autoload :CommentPresenter, 'broadsheet/presenters/comment_presenter'
 
   #
   # Controllers

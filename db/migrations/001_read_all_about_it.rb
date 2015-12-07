@@ -63,7 +63,7 @@ Sequel.migration do
       foreign_key :post_id, :post, :on_delete => :cascade
       foreign_key :parent_id, :comments, :on_delete => :cascade
 
-      column :markdown, :text
+      column :body, :text
 
       column :votes, :integer, :default => 0
 
