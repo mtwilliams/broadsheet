@@ -1,6 +1,5 @@
 window.Broadsheet ?= {}
 
-
 window.Broadsheet.App ?= {}
 Broadsheet.App.state ?= {session: {authenticated: false}}
 
@@ -75,11 +74,10 @@ Broadsheet.Auth.login = (token) ->
   dfd = $.Deferred()
   $.post '/v1/login', {token: token}
     .done (response) ->
+      Broadsheet.Auth.sync()
       if response.status != "ok"
-        Broadsheet.Auth.sync()
         return dfd.reject(response.error)
       else
-        Broadsheet.Auth.sync()
         dfd.resolve()
     .fail () ->
       # TODO(mtwilliams): Handle errors.
