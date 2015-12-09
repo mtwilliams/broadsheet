@@ -14,9 +14,9 @@
     <img alt="Code Quality Status" src="https://img.shields.io/codeclimate/github/mtwilliams/broadsheet.svg?label=code%20quality">
   </a>
   <a href="https://codecov.io/github/mtwilliams/broadsheet?branch=master">
-    <img alt="Test Coverage Status" src="https://img.shields.io/codecov/c/github/codecov/example-python/master.svg?label=test%20coverage">
+    <img alt="Code Coverage Status" src="https://img.shields.io/codecov/c/github/codecov/example-python/master.svg?label=code%20coverage">
   </a>
   <a href="https://gemnasium.com/mtwilliams/broadsheet">
-    <img alt="Dependency Status" src="https://img.shields.io/gemnasium/mtwilliams/broadsheet.svg?label=dependencies">
+    <img alt="Dependency Status" src="https://gemnasium.com/mtwilliams/broadsheet.svg?label=dependencies">
   </a>
 </p>
