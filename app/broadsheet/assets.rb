@@ -1,11 +1,18 @@
 class Broadsheet::Assets
-  def self.revisioned(path)
-    @manifest ||= if Broadsheet.env.production?
-      JSON.parse(File.read("#{Broadsheet.root}/public/assets/manifest.json"))
-    else
-      {}
+  def self.manifest
+    @manifest ||= begin
+      # TODO(mtwilliams): Refactor into Broadsheet::Assets::ManifestGenerator.
+      require 'digest/sha1'
+      Hash[%w{bundle.js bundle.css}.map do |bundle|
+        contents = File.read("#{Broadsheet.root}/public/assets/#{bundle}")
+        hash = Digest::SHA1.hexdigest(contents)
+        [bundle, "#{bundle}?#{hash}"]
+      end]
     end
-    "/assets/#{@manifest.fetch(path, path)}"
+  end
+
+  def self.revisioned(path)
+    "/assets/#{self.manifest.fetch(path, path)}"
   end
 
   def self.server
