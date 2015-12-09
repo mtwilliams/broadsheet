@@ -1,6 +1,6 @@
 class Broadsheet::Assets
   def self.manifest
-    @manifest ||= begin
+    manifest = lambda {
       # TODO(mtwilliams): Refactor into Broadsheet::Assets::ManifestGenerator.
       require 'digest/sha1'
       Hash[%w{bundle.js bundle.css}.map do |bundle|
@@ -8,6 +8,13 @@ class Broadsheet::Assets
         hash = Digest::SHA1.hexdigest(contents)
         [bundle, "#{bundle}?#{hash}"]
       end]
+    }
+
+    if Broadsheet.env.production?
+      # Cache our manifest in production.
+      @manifest ||= manifest.call()
+    else
+      manifest.call()
     end
   end
 
