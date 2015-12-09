@@ -1,3 +1,5 @@
+@import "~normalize";
+
 // TODO(mtwilliams): Give these variables clearer names.
 $primary: #3bba82; // #24be6f;
 $foreground: #b0b0b0; // #33495f
@@ -273,7 +275,7 @@ a {
   position: relative;
   width: 280px;
   height: 224px;
-  background: url('/images/joined.gif');
+  background: url(./images/joined.gif);
   background-size: 280px 224px;
 }
 .joined__message {
@@ -286,7 +288,7 @@ a {
   font-size: 16px;
 }
 
-.header {
+.app-header {
   @extend .component;
   width: 100%;
   height: 40px;
@@ -294,62 +296,60 @@ a {
   background: $primary;
   color: #fff;
 }
-.header__logo {
+.app-header__logo {
   @extend .left;
   display: inline-block;
   width: 42px;
   height: 42px;
 }
-.header-navigation {
+.app-header-navigation {
   @extend .right;
   text-decoration: none;
   color: #fff;
 }
-.header-navigation > a {
+.app-header-navigation > a {
   margin-right: 10px;
   &:last-child {
     margin-right: 0;
   }
 }
-.header-navigation__link,
-.header-navigation__button {
+.app-header-navigation__link,
+.app-header-navigation__button {
   line-height: 40px;
   font-size: 18px;
   text-decoration: none;
   color: #fff;
 }
-.header-navigation__link {
+.app-header-navigation__link {
 }
-.header-navigation__button {
+.app-header-navigation__button {
   padding: 6px 10px;
   background: $shadow;
   color: #fff;
 }
-
-.content {
+.app-content {
   @extend .container;
   margin-top: 20px;
 }
-
-.footer {
+.app-footer {
   @extend .component;
   @extend .clearfix;
 }
-.footer__mark { @extend .left; }
-.footer__ingredients {
+.app-footer__mark { @extend .left; }
+.app-footer__ingredients {
   @extend .right;
 
   @media only screen and (max-width: $bp-small) {
     display: none;
   }
 }
-.footer__ingredient {}
-.footer__ingredient__icon {}
+.app-footer__ingredient {}
+.app-footer__ingredient__icon {}
 
 .newsletter {
   @extend .component;
   background-color: $primary;
-  background-image: url('/images/topographic.png');
+  background-image: url(./images/topographic.png);
   background-size: 1000px;
   color: #fff;
   text-align: center;

@@ -4,21 +4,14 @@
     <meta charset="utf-8">
     <meta name="referrer" content="always">
     <meta name="viewport" content="width=device-width, user-scalable=no">
+
     <title>Fintech News</title>
-    <link rel="stylesheet" type="text/css" href="<%= revisioned 'styles/normalize.css' %>">
-    <link rel="stylesheet" type="text/css" href="<%= revisioned 'styles/typicons.css' %>">
-    <link rel="stylesheet" type="text/css" href="<%= revisioned 'styles/broadsheet.css' %>">
   </head>
 
   <body>
-    <div id="spa">
-      <%= yield %>
-    </div>
+    <%= yield %>
 
-    <script type="text/javascript" src="<%= revisioned 'scripts/jquery.js' %>"></script>
-    <script type="text/javascript" src="<%= revisioned 'scripts/vue.js' %>"></script>
-    <script type="text/javascript" src="<%= revisioned 'scripts/broadsheet.js' %>"></script>
-
+    <!-- TODO(mtwilliams): Handle fonts with Webpack. -->
     <!-- TODO(mtwilliams): Self host. -->
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700' rel='stylesheet' type='text/css'>
   </body>

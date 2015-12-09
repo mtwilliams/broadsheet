@@ -1,0 +1,35 @@
+<div class="comment">
+  <div>
+    <div class="comment-author">
+      <div class="comment-author__portrait">
+        <img alt="{{author.name}}" :src="author.portrait">
+      </div>
+      <span class="comment-author__name">
+        <a v-link="{name: 'user', params: {userId: author.id}}">{{author.name}}</a>
+      </span>
+    </div>
+    <span class="comment__age">commented {{age}} ago</span>
+    <a class="comment__anchor"
+       v-link="{name: 'comment', params: {commentId: id}}">
+      <span class="typcn typcn-anchor"></span>
+    </a>
+  </div>
+  <div class="comment__body">
+    <!-- TODO(mtwilliams): Render markdown. -->
+    {{body}}
+  </div>
+  <div class="comment-sentiment">
+    <span class="comment-sentiment__count">{{votes}} points</span>
+  </div>
+  <div class="comment-children">
+    <comment v-for="child in children"
+             :class="{'comment--child': true}"
+             :id="child.id"
+             :author="child.author"
+             :age="child.age"
+             :votes="child.votes"
+             :body="child.body"
+             :children="child.children">
+    </comment>
+  </div>
+</div>

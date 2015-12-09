@@ -1,40 +1,16 @@
 <script type="text/javascript">
-  window.Broadsheet = {};
-  Broadsheet.App = {};
-  Broadsheet.App.state = {session: <%= session.to_json %>};
-  Broadsheet.App.posts_for_this_week = <%= posts_for_this_week.to_json %>;
+  window.Broadsheet = {
+    App: {
+      state: {
+        session: <%= session.to_json %>
+      }
+    }
+  };
 </script>
 
-<bs-header>
-</bs-header>
-
-<div class="content">
-  <template v-if="app.state.session.authenticated">
-    <template v-if="!app.state.session.user.subscribed">
-      <bs-newsletter>
-      </bs-newsletter>
-      <bs-seperator title="This Week">
-      </bs-seperator>
-    </template>
-  </template>
-
-  <template v-else>
-    <bs-newsletter>
-    </bs-newsletter>
-    <bs-seperator title="This Week">
-    </bs-seperator>
-  </template>
-
-  <bs-post v-for="post in posts"
-           :id="post.id"
-           :poster="post.poster"
-           :title="post.title"
-           :link="post.link",
-           :votes="post.votes",
-           :age="post.age",
-           :comments="post.comments">
-  </bs-post>
+<div id="spa">
+  <!-- This is where the magic happens! -->
 </div>
 
-<bs-footer>
-</bs-footer>
+<link type="text/css" href="<%= revisioned 'bundle.css' %>" rel="stylesheet">
+<script type="text/javascript" src="<%= revisioned 'bundle.js' %>"></script>

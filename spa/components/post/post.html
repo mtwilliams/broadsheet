@@ -1,0 +1,37 @@
+<div class="post">
+  <div class="post-sentiment"
+       :class="{'post-sentiment--positive': (sentiment == 'positive'),
+                'post-sentiment--neutral':  (sentiment == 'neutral'),
+                'post-sentiment--negative': (sentiment == 'negative')}">
+    <div class="post-sentiment__up" @click="upvote">
+      <span class="typcn typcn-arrow-sorted-up"></span>
+    </div>
+    <span class="post-sentiment__votes">{{votes}}</span>
+    <div class="post-sentiment__down" @click="downvote">
+      <span class="typcn typcn-arrow-sorted-down"></span>
+    </div>
+  </div>
+  <div class="post-header">
+    <div class="post__title">
+      <a href="{{{link}}}">
+        <h1>{{title}}</h1>
+      </a>
+    </div>
+    <div class="post-details">
+      <a v-link="{name: 'post', params: {postId: id}}">{{numComments}} {{numComments | pluralize 'comment'}}</a> • Posted {{age}} by <a v-link="{name: 'user', params: {userId: poster.id}}">{{poster.name}}</a>
+    </div>
+  </div>
+  <template v-if="!card">
+    <div class="post-comments">
+      <div class="post-comments__title">Comments</div>
+      <comment v-for="comment in comments"
+               :id="comment.id"
+               :author="comment.author"
+               :age="comment.age"
+               :votes="comment.votes"
+               :body="comment.body"
+               :children="comment.children"
+      </comment>
+    </div>
+  </template>
+</div>

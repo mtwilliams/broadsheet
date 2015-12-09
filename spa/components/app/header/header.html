@@ -1,0 +1,17 @@
+<header class="app-header">
+  <div class="container">
+    <a v-link="'news'">
+      <!-- TODO(mtwilliams): Use require for images. -->
+      <img class="app-header__logo" src="../../../images/logo.png">
+    </a>
+    <nav class="app-header-navigation">
+      <template v-if="app.state.session.authenticated">
+        <a class="app-header-navigation__link" @click="logout">Logout</a>
+      </template>
+      <template v-else>
+        <a class="app-header-navigation__button" @click="join">Join</a>
+        <a class="app-header-navigation__link" @click="login">Login</a>
+      </template>
+    </nav>
+  </div>
+</header>

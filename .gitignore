@@ -4,8 +4,10 @@
 # Node
 node_modules/
 
-# Gulp
-public/
+# Webpack & Gulp
+public/assets/
+public/assets/bundle.js
+public/assets/bundle.css
 
 # Backend
 .cache/

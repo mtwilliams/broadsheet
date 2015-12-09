@@ -1,16 +1,8 @@
-Use <form> so as not to break default submission behaviour (use enter/return).
 Allow voting on posts, prompting users to join if they're not authenticated.
-Webpackify.
- => Bower.
- => Refactor into multiple files.
+Use Bower.
 Fix error logging issues in Gulpfile.
-Use a proper router (vue-router).
- => Write a generic Javascript client library.
- => State synchronization under `Broadsheet.App`.
- => Drop prefixes on components.
-  -> Refactor `app/broadsheet/views/spa.html.erb` into:
-       (1) A "single page application" layout that injects state.
-       (2) A 100% client-side app view-model.
+Write a generic Javascript client library.
+Use <form> so as not to break default submission behaviour (use enter/return).
 Use a page, rather than a modal, for joining.
 Post submission.
  => Post moderation.

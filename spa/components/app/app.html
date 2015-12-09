@@ -1,0 +1,21 @@
+<app-header></app-header>
+
+<div class="app-content">
+  <!-- Beg people to subscribe to our newsletter. -->
+  <template v-if="app.state.session.authenticated">
+    <template v-if="!app.state.session.user.subscribed">
+      <newsletter>
+      </newsletter>
+      <div class="seperator"></div>
+    </template>
+  </template>
+  <template v-else>
+    <newsletter>
+    </newsletter>
+    <div class="seperator"></div>
+  </template>
+
+  <router-view></router-view>
+</div>
+
+<app-footer></app-footer>

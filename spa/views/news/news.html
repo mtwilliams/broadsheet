@@ -1,0 +1,10 @@
+<template v-for="post in posts">
+  <post :id="post.id"
+        :poster="post.poster"
+        :title="post.title"
+        :link="post.link",
+        :votes="post.votes",
+        :age="post.age",
+        :comments="post.comments">
+  </post>
+</template>
