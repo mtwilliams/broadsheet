@@ -62,7 +62,7 @@ module.exports = [
         {
           test: /\.(jpe?g|png|gif|svg)$/i,
           // loader: "url-loader?limit=8192"
-          loader: "file?name=[path][name].[ext]?[hash]"
+          loader: "file?name=[path][name].[ext]?[sha1:hash]"
         }
       ]
     },
