@@ -1,4 +1,5 @@
 var webpack = require("webpack"),
+    path = require("path"),
     ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var node_dir = __dirname + '/node_modules';
@@ -27,6 +28,7 @@ module.exports = [{
   ],
 
   resolve: {
+    root: path.resolve(__dirname, "spa"),
     alias: {
       'normalize': node_dir + '/normalize.css/normalize.css',
       'jquery': node_dir + '/jquery/dist/jquery.js',

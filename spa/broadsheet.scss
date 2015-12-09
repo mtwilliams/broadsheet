@@ -275,7 +275,7 @@ a {
   position: relative;
   width: 280px;
   height: 224px;
-  background: url(./images/joined.gif);
+  background: url(~images/joined.gif);
   background-size: 280px 224px;
 }
 .joined__message {
@@ -349,7 +349,7 @@ a {
 .newsletter {
   @extend .component;
   background-color: $primary;
-  background-image: url(./images/topographic.png);
+  background-image: url(~images/topographic.png);
   background-size: 1000px;
   color: #fff;
   text-align: center;
