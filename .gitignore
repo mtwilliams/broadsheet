@@ -4,7 +4,7 @@
 # Node
 node_modules/
 
-# Webpack & Gulp
+# Webpack
 public/assets/
 public/assets/bundle.js
 public/assets/bundle.css
