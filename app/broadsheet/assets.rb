@@ -1,19 +1,18 @@
 class Broadsheet::Assets
   def self.revisioned(path)
     @manifest ||= if Broadsheet.env.production?
-      JSON.parse(File.read("#{Broadsheet.root}/.cache/public/manifest.json"))
+      JSON.parse(File.read("#{Broadsheet.root}/public/assets/manifest.json"))
     else
       {}
     end
-    "/#{@manifest.fetch(path, path)}"
+    "/assets/#{@manifest.fetch(path, path)}"
   end
 
   def self.server
-    root = if Broadsheet.env.production?
-             "#{Broadsheet.root}/.cache/public"
-           else
-             "#{Broadsheet.root}/public"
-           end
-    @server ||= Rack::Static.new(Proc.new {|_| [404, {}, []]}, root: root, urls: [""])
+    @server ||= begin
+      root = "#{Broadsheet.root}/public/assets"
+      not_found = Proc.new {|_| [404, {}, []]}
+      Rack::Static.new(not_found, root: root, urls: [""])
+    end
   end
 end

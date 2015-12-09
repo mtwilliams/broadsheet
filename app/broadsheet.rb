@@ -2,6 +2,11 @@ require 'dotiw'
 require 'gravatar'
 
 class Broadsheet < Tetrahedron::Application
+  # HACK(mtwilliams): Get Sinatra::Reloader to recognize our code.
+  Dir.glob(File.join(File.dirname(__FILE__), '**', '*.rb')).each do |path|
+    also_reload path.sub('.rb', '')
+  end
+
   #
   # Middleware
   #
@@ -95,15 +100,11 @@ class Broadsheet < Tetrahedron::Application
 
   autoload :Assets, 'broadsheet/assets'
 
-  get '/*' do
+  get '/assets/*' do
+    env = self.env.merge({'PATH_INFO' => self.env['PATH_INFO'].sub('/assets','')})
     status, headers, body = Broadsheet::Assets.server.call(env)
     pass unless [200, 204, 301, 302, 303, 304, 307, 308].include?(status)
     [status, headers, body]
-  end
-
-  # HACK(mtwilliams): Get Sinatra::Reloader to recognize our code.
-  Dir.glob(File.join(File.dirname(__FILE__), '**', '*.rb')).each do |path|
-    also_reload path.sub('.rb', '')
   end
 
   #
