@@ -1,6 +1,6 @@
-<p align="center">
-  <h1>Broadsheet</h1>
-</p>
+<h1 align="center">
+  Broadsheet
+</h1>
 
 <p align="center">
   :newspaper: A modern bulletin board platform.
