@@ -32,17 +32,6 @@ gem 'tilt'
 # Erubis for HTML.
 gem 'erubis'
 
-# Sass for CSS.
-gem 'sass'
-gem 'cssminify', :group => :production
-
-# CoffeeScript for JS.
-gem 'coffee-script'
-gem 'uglifier', :group => :production
-gem 'execjs'
-gem 'therubyracer'
-gem 'libv8'
-
 # SQLite3/Postgres for DB.
 gem 'sequel'
 # SQLite3 for simplicty.

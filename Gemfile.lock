@@ -23,19 +23,13 @@ GEM
       debug_inspector (>= 0.0.1)
     byebug (8.2.1)
     coderay (1.1.0)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.10.0)
     connection_pool (2.2.0)
-    cssminify (1.0.2)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     domain_name (0.5.25)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.0.2)
     erubis (2.7.0)
-    execjs (2.6.0)
     facter (2.4.4)
       CFPropertyList (~> 2.2.6)
     git-version-bump (0.15.1)
@@ -51,7 +45,6 @@ GEM
     http_parser.rb (0.6.0)
     i18n (0.7.0)
     json (1.8.3)
-    libv8 (3.16.14.13)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     metaclass (0.0.4)
@@ -82,7 +75,6 @@ GEM
     raven (1.2.4)
       rake (>= 0.7)
     redis (3.2.2)
-    ref (2.0.0)
     rest-client (1.8.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
@@ -100,7 +92,6 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
-    sass (3.4.19)
     sequel (4.29.0)
     sequel_pg (1.6.13)
       pg (>= 0.8.0)
@@ -131,17 +122,11 @@ GEM
       sinatra
       sinatra-contrib
       thor
-    therubyracer (0.12.2)
-      libv8 (~> 3.16.14.0)
-      ref
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (2.7.2)
-      execjs (>= 0.3.0)
-      json (>= 1.8.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.1)
@@ -156,16 +141,12 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   byebug
-  coffee-script
   connection_pool
-  cssminify
   dotenv
   erubis
-  execjs
   facter
   hiredis
   http
-  libv8
   mail
   mocha
   pg
@@ -178,7 +159,6 @@ DEPENDENCIES
   rake
   raven
   redis
-  sass
   sequel
   sequel_pg
   sinatra
@@ -186,9 +166,7 @@ DEPENDENCIES
   skylight
   sqlite3
   tetrahedron
-  therubyracer
   tilt
-  uglifier
   yard
 
 BUNDLED WITH
