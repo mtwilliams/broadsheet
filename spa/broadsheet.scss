@@ -170,104 +170,55 @@ a {
 }
 
 .join {
-  position: relative;
-  width: 280px;
+  background: #fff;
+  color: darken($foreground, 15%);
+  padding: 20px;
+
+  div:not(:last-child) {
+    margin-bottom: 20px;
+  }
 }
-.join h1 {
-  color: $primary;
-  margin: 0 0 10px;
-}
-.join p {
-  margin: 0 0 15px;
-}
-.join__error {
-  color: $error;
-}
-.join__name,
-.join__email {
-  box-sizing: border-box;
-  display: block;
-  width: 100%;
-  margin-bottom: 10px;
-}
-.join__subscribe {
-  position: relative;
-  width: 100%;
-  display: block;
-  margin: 15px 0 20px;
-  line-height: 20px;
-  height: 20px;
-  input {
-    opacity: 0;
-    position: absolute;
-    top: 0; left: 0;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
+.join-header {
+  h1 {
     margin: 0;
-    z-index: 2;
-    &:checked + label:before {
-      background: $primary;
-      color: #fff;
+    color: $primary;
+    margin-bottom: 10px;
+  }
+  p {
+    margin: 0;
+  }
+}
+.join-form {
+}
+
+.opt-in {
+  position: relative;
+
+  label {
+    display: block;
+    background: #fafafa;
+    color: darken($foreground, 15%);
+    padding: 15px 15px 15px 50px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.1s ease-in 0s;
+    line-height: 1.5;
+    strong {
+      display: block;
     }
   }
-  label:before {
-    display: inline-block;
-    position: relative;
-    top: 0; left: -10px;
 
-    background: $shadow;
-    width: 20px;
-    height: 20px;
-    font-size: 18px;
-
-    font-family: 'typicons';
-    font-style: normal;
-    font-weight: normal;
-    speak: none;
-    text-decoration: none;
-    text-align: center;
-    -webkit-font-smoothing: antialiased;
-    font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    content: "\e11e";
-
-    color: transparent;
-  }
-  label {
-    margin-left: 10px;
-    font-size: 12px;
-    line-height: 20px;
-  }
-}
-.join__submit {
-  width: 100%;
-  padding: 8px 12px;
-  background: $primary;
-  border: none;
-  color: #fff;
-  font-size: 18px;
-}
-.join__submit[disabled=true],
-.join__submit--disabled {
-  background: $background;
-  color: $foreground;
-}
-.join__spinner {
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-  background: rgba(white, 0.75);
-  font-size: 60px;
-  color: $foreground;
-  > span {
-    @include spin(1);
+  input[type="checkbox"] {
     position: absolute;
-    top: 50%; left: 50%;
-    margin: -30px 0 0 -30px;
+    top: 19px;
+    left: 21px;
+    width: 14px;
+    height: 14px;
   }
-  > span:before {
-    position: relative;
-    top: -5px;
+
+  input[type="checkbox"]:checked + label {
+    background: lighten($primary, 45%);
+    color: darken($foreground, 45%);
   }
 }
 

@@ -54,7 +54,7 @@ Vue.component 'comment', Broadsheet.CommentComponent
 
 # Views
 Broadsheet.NewsView = require "./views/news/news.coffee"
-# Broadsheet.JoinView = require "./views/join/join.coffee"
+Broadsheet.JoinView = require "./views/join/join.coffee"
 # Broadsheet.PostView = require "./views/post/post.coffee"
 # Broadsheet.CommentView = require "./views/comment/comment.coffee"
 
@@ -66,9 +66,9 @@ Broadsheet.App.router.map
   '/':
     name: 'news'
     component: Broadsheet.NewsView
-  # '/join':
-  #   name: 'join'
-  #   component: Broadsheet.JoinView
+  '/join':
+    name: 'join'
+    component: Broadsheet.JoinView
   # '/posts/:postId':
   #   name: 'post'
   #   component: Broadsheet.PostView

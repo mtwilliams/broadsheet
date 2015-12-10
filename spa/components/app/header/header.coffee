@@ -10,7 +10,7 @@ Component = Vue.extend
 
   methods:
     join: (event) ->
-      # ...
+      @$route.router.go "join"
 
     login: (event) ->
       # ...
