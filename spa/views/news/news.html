@@ -1,3 +1,17 @@
+<!-- Beg people to subscribe to our newsletter. -->
+<template v-if="app.state.session.authenticated">
+  <template v-if="!app.state.session.user.subscribed">
+    <newsletter>
+    </newsletter>
+    <div class="seperator"></div>
+  </template>
+</template>
+<template v-else>
+  <newsletter>
+  </newsletter>
+  <div class="seperator"></div>
+</template>
+
 <template v-for="post in posts">
   <post :id="post.id"
         :poster="post.poster"
